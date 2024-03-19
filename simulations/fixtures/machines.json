@@ -1,0 +1,6 @@
+[
+  {"name":  "machine-1", "location": "https://some-machine-1.in.the.cloud.aws.com"},
+  {"name":  "machine-2", "location": "https://some-machine-2.in.the.cloud.aws.com"},
+  {"name":  "machine-3", "location": "https://some-machine-3.in.the.cloud.aws.com"},
+  {"name":  "machine-4", "location": "https://some-machine-4.in.the.cloud.aws.com"}
+]

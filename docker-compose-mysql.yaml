@@ -1,0 +1,45 @@
+## this version for using MySQL, but I have already set up stuff for using Posgtgres so I'll go with that
+version: '3'
+
+services:
+  db:
+    image: mysql
+    restart: always
+    volumes:
+      - data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # obviously hard coding these isn't the best idea
+      MYSQL_DATABASE: origenai
+      MYSQL_USER: colinkingswood
+      MYSQL_PASSWORD: testpassword
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysql", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD}", "-e", "SELECT 1"]
+      timeout: 20s
+      retries: 10
+  web:
+    build:
+      context: .  # Assuming the Dockerfile is in the root directory
+      dockerfile: Dockerfile-django  # Specifically using the development
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+#  migrate:
+#    build:
+#      context: .  # Assuming the Dockerfile is in the root directory
+#      dockerfile: Dockerfile-django  # Specifically using the development
+#    command: python manage.py migrate
+#    volumes:
+#      - .:/app
+#    depends_on:
+#      - db
+
+
+volumes:
+  data:

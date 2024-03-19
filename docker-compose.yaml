@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: origenai
+      POSTGRES_USER: colinkingswood
+      POSTGRES_PASSWORD: testpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .  # Assuming the Dockerfile is in the root directory
+      dockerfile: Dockerfile-django  # Specifically using the development
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+#  migrate:
+#    build:
+#      context: .  # Assuming the Dockerfile is in the root directory
+#      dockerfile: Dockerfile-django  # Specifically using the development
+#    command: python manage.py migrate
+#    volumes:
+#      - .:/app
+#    depends_on:
+#      - db
+
+
+volumes:
+  postgres_data:
