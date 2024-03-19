@@ -1,27 +1,30 @@
-- [ ] write some tests
+- [x] write some tests
 - [x] create tables
   - [x] if table exists , show warning
 - [x] create tables before tests, how to do this?
 - [x] load machines from fixtures
-- [ ] start a simulation
+- [x] start a simulation
 - [ ] update a simulation (in our database) from running simulation
-- [ ] remove migration from docker compose 
-  - [ ] replace with my own migration
-- [ ] run tests from docker compose, how to do this?
+- [x ] remove migration from docker compose 
+  - [x] replace with my own migration
+- [ x] run tests from docker compose, how to do this?
 
 ### main application
 - [x] list of machines, loaded from fixture
-- [ ] list simulation
+- [x] list simulation
 - [ ] filter simulations
 - [ ] order simulations
-- [ ] create simulation, by giving name
+- [x] create simulation, by giving name
   - [ ] error if machine name doesn't work
-- [ ] link for simulation details
-- [ ] simulation detail endpoint
-- [ ] convergence graph endpoint
-- [ ] add convergence point details
-
+- [x] link for simulation details
+- [x] simulation detail endpoint
+- [x] convergence graph endpoint
+  - [ ] fix data structure to match spec 
+- [x] add convergence point details
+- [ ] fix trigger to update date
+- [ ] create a list of curl commands for demo
+- [ ] machione can be non null - when pending
 ### clean up
 - [ ] remove print statement, replace with logging
-- [ ] remove models
-- [ ] remove ddl files
+- [x] remove models
+- [x] remove ddl files

@@ -108,10 +108,19 @@ class SimulationTestCase(TestCase):
 
         response = self.client.get(f"/api/simulations/{simulation_id}/graph")
         self.assertEqual(response.status_code, 200)
-        print("-----")
-        print(response.json())
+        expected_response = [{'seconds': 10, 'loss': '0.80000'}, {'seconds': 20, 'loss': '0.70000'},
+                             {'seconds': 30, 'loss': '0.65000'}, {'seconds': 40, 'loss': '0.61000'},
+                             {'seconds': 50, 'loss': '0.61500'}, {'seconds': 60, 'loss': '0.60000'},
+                             {'seconds': 70, 'loss': '0.58000'}, {'seconds': 80, 'loss': '0.57500'},
+                             {'seconds': 90, 'loss': '0.58000'}, {'seconds': 100, 'loss': '0.56000'},
+                             {'seconds': 110, 'loss': '0.55500'}, {'seconds': 120, 'loss': '0.54000'},
+                             {'seconds': 130, 'loss': '0.55100'}, {'seconds': 140, 'loss': '0.55000'},
+                             {'seconds': 150, 'loss': '0.55300'}, {'seconds': 160, 'loss': '0.55200'},
+                             {'seconds': 170, 'loss': '0.55500'}, {'seconds': 180, 'loss': '0.54600'},
+                             {'seconds': 190, 'loss': '0.55000'}]
 
-
+        actual_response = list(response.json())
+        self.assertEqual(expected_response, actual_response)
 
     # -- methods to load data from fixtures for testing --
     def load_machines(self):
@@ -136,7 +145,6 @@ class SimulationTestCase(TestCase):
             return ids
 
     def load_simulations(self):
-#        machine_ids = self.load_machines()
         app_config = apps.get_app_config('simulations')
 
         # Build the path to the fixture file
@@ -177,5 +185,4 @@ class SimulationTestCase(TestCase):
                 print(loss_data_json)
                 loss_data = CreateLossData(**loss_data_json)
                 resp = add_loss_data(None, data=loss_data)
-
         return sim_id

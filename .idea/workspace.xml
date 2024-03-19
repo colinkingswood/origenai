@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17a3f16c-264d-4368-9d31-4c969703cb0f" name="Changes" comment="Majority of stuff working, a few things to tidy up, and extra bits to add.">
-      <change afterPath="$PROJECT_DIR$/simulations/fixtures/simulations.json" afterDir="false" />
+    <list default="true" id="17a3f16c-264d-4368-9d31-4c969703cb0f" name="Changes" comment="Tests working, even though they are a bit of a mess">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/simulations/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulations/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulations/create_tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulations/create_tables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulations/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulations/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todo.md" beforeDir="false" afterPath="$PROJECT_DIR$/todo.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,12 +138,29 @@
       <option name="project" value="LOCAL" />
       <updated>1710874466833</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Majority of stuff working, a few things to tidy up, and extra bits to add.">
+      <option name="closed" value="true" />
+      <created>1710881573078</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1710881573078</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Tests working, even though they are a bit of a mess">
+      <option name="closed" value="true" />
+      <created>1710881619683</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1710881619683</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Majority of stuff working, a few things to tidy up, and extra bits to add." />
-    <option name="LAST_COMMIT_MESSAGE" value="Majority of stuff working, a few things to tidy up, and extra bits to add." />
+    <MESSAGE value="Tests working, even though they are a bit of a mess" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tests working, even though they are a bit of a mess" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

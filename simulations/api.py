@@ -93,7 +93,7 @@ def convergence_graph(request, simulation_id: int):
     """
 
     try:
-        get_loss_data_sql = "SELECT seconds, loss FROM lossdata WHERE simulation_id = (%s) ORDER BY id ASC"
+        get_loss_data_sql = "SELECT seconds, loss FROM lossdata WHERE simulation_id = (%s) ORDER BY seconds ASC"
         conn = connections['default']
         conn.ensure_connection()
         with conn.connection.cursor(cursor_factory=RealDictCursor) as cur:
@@ -103,21 +103,6 @@ def convergence_graph(request, simulation_id: int):
 
     except Exception as e:
         return JsonResponse({"OK": False, "error": str(e)}, status=400)
-
-
-    # TODO get the list of loss data from teh database, for that simulation id
-    # response = {
-    #     "data": [
-    #         {"seconds": 10, "loss": 0.8}, {"seconds": 20, "loss": 0.7}, {"seconds": 30, "loss": 0.65},
-    #         {"seconds": 40, "loss": 0.61}, {"seconds": 50, "loss": 0.615}, {"seconds": 60, "loss": 0.60},
-    #         {"seconds": 70, "loss": 0.58}, {"seconds": 80, "loss": 0.575}, {"seconds": 90, "loss": 0.58},
-    #         {"seconds": 100, "loss": 0.56}, {"seconds": 110, "loss": 0.555}, {"seconds": 120, "loss": 0.54},
-    #         {"seconds": 130, "loss": 0.551}, {"seconds": 140, "loss": 0.55}, {"seconds": 150, "loss": 0.553},
-    #         {"seconds": 160, "loss": 0.552}, {"seconds": 170, "loss": 0.555}, {"seconds": 180, "loss": 0.546},
-    #         {"seconds": 190, "loss": 0.55}
-    #     ]
-    # }
-    # return response
 
 @api.get("/simulations/{simulation_id}/detail")
 def simulation_detail(request):
@@ -139,8 +124,8 @@ class CreateSimulationSchema(Schema):
 @api.post("simulations/add")
 def add_simulation(request, data:CreateSimulationSchema):
     try:
-        insert_sql = """INSERT INTO simulation (name, state, machine_id ) 
-                        VALUES (%s, %s, (SELECT id FROM machine WHERE name = %s))
+        insert_sql = """INSERT INTO simulation (name, state, machine_id, date_updated) 
+                        VALUES (%s, %s, (SELECT id FROM machine WHERE name = %s), NOW())
                          RETURNING id
                         """
         insert_values = (data.name, data.state, data.machine_name)
@@ -156,6 +141,19 @@ def add_simulation(request, data:CreateSimulationSchema):
         return JsonResponse({"OK": False, "error": str(e)}, status=400)
 
 
+class SortFields(str, Enum):
+    NAME_ASC: 'name'
+    NAME_DESC: '-name'
+    CREATION_ASC: 'date_created'
+    CREATION_DESC: '-date_created'
+    UPDATE_ASC: 'date_updates'
+    UPDATE_DESC: '-date_updates'
+
+
+class ItemFilter(Schema):
+    sort: Optional[str] = None
+    status: Optional[State] = None
+
 @api.get("/simulations")
 def simulations(request):
     """
@@ -164,6 +162,7 @@ def simulations(request):
     :return:
     """
     # TODO add filtering and ordering
+    # add a link to the simulation detail
     try:
         get_machines_sql = "SELECT * FROM simulation ORDER BY date_created"
         conn = connections['default']

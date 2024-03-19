@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS "simulation" (
     state varchar(10) NOT NULL,
     date_created timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
     date_updated timestamp with time zone ,
-    machine_id INT NOT NULL,
+    machine_id INT,
     FOREIGN KEY (machine_id) REFERENCES machine(id) 
 );
 
