@@ -4,29 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17a3f16c-264d-4368-9d31-4c969703cb0f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/origenai.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dockerfile-django" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose-mysql.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simulations/api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simulations/create_tables.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simulations/database_connection.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simulations/fixtures/loss_data.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simulations/fixtures/machines.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simulations/management/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simulations/management/commands/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simulations/management/commands/load_fixtures.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simulations/management/commands/setup_database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/todo.md" afterDir="false" />
+    <list default="true" id="17a3f16c-264d-4368-9d31-4c969703cb0f" name="Changes" comment="Majority of stuff working, a few things to tidy up, and extra bits to add.">
+      <change afterPath="$PROJECT_DIR$/simulations/fixtures/simulations.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulations/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulations/api.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +128,20 @@
       <option name="presentableId" value="Default" />
       <updated>1710754977406</updated>
     </task>
+    <task id="LOCAL-00001" summary="Majority of stuff working, a few things to tidy up, and extra bits to add.">
+      <option name="closed" value="true" />
+      <created>1710874466832</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1710874466833</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Majority of stuff working, a few things to tidy up, and extra bits to add." />
+    <option name="LAST_COMMIT_MESSAGE" value="Majority of stuff working, a few things to tidy up, and extra bits to add." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
