@@ -38,5 +38,3 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER update_date_updated_col BEFORE UPDATE ON simulation FOR EACH ROW EXECUTE PROCEDURE  update_date_updated_column();
 
 """
-
-# TODO I should add  triggers here for the auto date time fields, though the python code might be easier and quicker

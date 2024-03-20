@@ -1,5 +1,5 @@
 [
-  {"name": "my-simulation=1", "state": "pending", "date_created": "2024-03-19T18:11:10.239Z", "date_updated": "2024-03-19T18:11:10.239Z", "machine_name": "machine-1"},
+  {"name": "my-simulation-1", "state": "pending", "date_created": "2024-03-19T18:11:10.239Z", "date_updated": "2024-03-19T18:11:10.239Z", "machine_name": "machine-1"},
   {"name": "my-simulation-2", "state": "pending", "date_created": "2024-03-19T18:14:22.525Z", "date_updated": "2024-03-19T18:11:10.239Z", "machine_name": "machine-1"},
   {"name": "my-simulation-3", "state": "pending", "date_created": "2024-03-19T18:15:31.183Z", "date_updated": "2024-03-19T18:11:10.239Z", "machine_name": "machine-1"}
 ]

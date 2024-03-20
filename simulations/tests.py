@@ -1,8 +1,7 @@
 import json
 
 from django.apps import apps
-from django.conf import settings
-from django.test import TestCase, override_settings
+from django.test import TestCase
 from django.core.management import call_command
 
 from simulations.api import CreateLossData, add_loss_data, CreateMachineSchema, add_machine, CreateSimulationSchema, \
@@ -53,6 +52,12 @@ class SimulationTestCase(TestCase):
                                     )
         print(response.status_code)
 
+    def test_add_simulation_validation(self):
+        """Should test with some bad inputs to make sure the data validations works
+            Also some duplicates on unique feilds
+        """
+        pass
+
     def test_get_simulations(self):
         ## django isolates test cases so they run in a transaction, and data is deleted between tests
         ## (I probably didn't pick  the best framework, but it's what I am most familar with,
@@ -66,6 +71,10 @@ class SimulationTestCase(TestCase):
 
     def test_simulation_filters(self):
         """make some calls to the simulations endpoint with the filters for sort and search added"""
+        pass
+
+    def test_update_simulation(self):
+        """ Test that teh triggesr works (it did when I updated manually in postgres)"""
         pass
 
 
@@ -127,7 +136,9 @@ class SimulationTestCase(TestCase):
         actual_response = list(response.json())
         self.assertEqual(expected_response, actual_response)
 
+    #----------------------------------------------------
     # -- methods to load data from fixtures for testing --
+    # -- not the nicest code please don't judge too harshly
     def load_machines(self):
         app_config = apps.get_app_config('simulations')
 
@@ -165,13 +176,16 @@ class SimulationTestCase(TestCase):
             for simulation_json in simulation_list_json:
                 simulation_data = CreateSimulationSchema(**simulation_json)
                 resp = add_simulation(None, data=simulation_data)
-                # self.stdout.write(resp.status_code)
+                print(resp)
+                if hasattr(resp, 'status_code'):
+                    print(resp.json())
                 ids.append(resp['id'])
-            return ids
+            print("ids:---",ids)
+        return ids
 
     def load_loss_data(self):
-        self.load_simulations()
 
+        simulation_ids = self.load_simulations()
         app_config = apps.get_app_config('simulations')
         fixture_path = app_config.path + '/fixtures/loss_data.json'
 
@@ -182,9 +196,8 @@ class SimulationTestCase(TestCase):
 
             # As we are not using Django models and SQL directly, I will
             # load the fixtures via the endpoint function to get some data validation
-            sim_list = simulations(None)
-            sim_id = sim_list[0]['id']
-            print("~~",  sim_list)
+            sim_id = simulation_ids[0]
+            print("using simulation id", sim_id)
             for loss_data_json in loss_data_list_json:
                 loss_data_json.update({"simulation_id": sim_id})
                 print(loss_data_json)
