@@ -45,7 +45,7 @@ some commands to add simulations
        -d '{"name": "my-simulation-3", "state": "pending"}'
 ```
 
-You can then see these (in a browser) at  0.0.0.0:8000/api/simulations
+You can then see these (in a browser) at  http://0.0.0.0:8000/api/simulations
 
 The list of endpoints can be seen if you go to a broswer 
 http://0.0.0.0:8000/api/docs
