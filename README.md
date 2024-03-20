@@ -8,6 +8,7 @@ I created a few management command to create the tables and load the fixture dat
 ### To use the system
 
 To start everything use 
+
     `docker compose up -- build`. 
 
 On my machine the web server is starting before the database is available, so you may need to stop and restart the docker compose containers as the web server starts before the database is ready on my development machine. 
@@ -15,6 +16,7 @@ SO `ctrl + c` then run `docker comppose up` again
 
 
 Check the name of your docker containers with 
+
     `docker ps`
 
 There should be one with web-1 in the name , like `origenai-web-1`
@@ -22,6 +24,7 @@ There should be one with web-1 in the name , like `origenai-web-1`
 ### setup database 
 This uses a django management command to run the SQL.
 To setup the database use the following command (you may need to change the container name to what you saw in the previous command)
+
 `docker exec -it origenai-web-1 python manage.py setup_database`
 
 
