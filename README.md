@@ -25,19 +25,20 @@ There should be one with web-1 in the name , like `origenai-web-1`
 This uses a django management command to run the SQL.
 To setup the database use the following command (you may need to change the container name to what you saw in the previous command)
 
-`docker exec -it origenai-web-1 python manage.py setup_database`
+    `docker exec -it origenai-web-1 python manage.py setup_database`
 
 
 In order to load the machine fixtures use the following command. (You may need to use `docker ps` to get the name of the correct web server container)
 
-`docker exec -it origenai-web-1 python manage.py load_fixtures`
+    `docker exec -it origenai-web-1 python manage.py load_fixtures`
 
 in order to run the tests use 
 
-`docker exec -it origenai-web-1 python manage.py test`
+    `docker exec -it origenai-web-1 python manage.py test`
 
 
-some commands to add simulations
+some commands to add simulations 
+
 ```curl -X POST 0.0.0.0:8000/api/simulations/add \
         -H "Content-Type: application/json" \
         -d '{"name": "my-simulation-1", "state": "pending", "machine_name": "machine-1"}'
