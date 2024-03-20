@@ -47,5 +47,5 @@ some commands to add simulations
 
 You can then see these (in a browser) at  http://0.0.0.0:8000/api/simulations
 
-The list of endpoints can be seen if you go to a broswer 
+The full list of endpoints can be seen if you go to a broswer 
 http://0.0.0.0:8000/api/docs
