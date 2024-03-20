@@ -64,6 +64,11 @@ class SimulationTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         # check response data matches here
 
+    def test_simulation_filters(self):
+        """make some calls to the simulations endpoint with the filters for sort and search added"""
+        pass
+
+
     def test_add_loss_data(self):
 
         # first add a simulation (django test cases are transactions, so previous steps get deleted)

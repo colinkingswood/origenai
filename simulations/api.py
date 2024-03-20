@@ -4,7 +4,7 @@ from enum import Enum
 from typing import List, Optional
 
 from django.http import JsonResponse
-from ninja import NinjaAPI, Router, Schema
+from ninja import NinjaAPI, Router, Schema, FilterSchema, Query
 # from simulations.database_connection import conn
 from django.db import connections
 from psycopg2.extras import RealDictCursor
@@ -144,31 +144,53 @@ def add_simulation(request, data:CreateSimulationSchema):
 class SortFields(str, Enum):
     NAME_ASC: 'name'
     NAME_DESC: '-name'
-    CREATION_ASC: 'date_created'
-    CREATION_DESC: '-date_created'
-    UPDATE_ASC: 'date_updates'
-    UPDATE_DESC: '-date_updates'
+    CREATION_ASC: 'created'
+    CREATION_DESC: '-created'
+    UPDATE_ASC: 'updated'
+    UPDATE_DESC: '-updated'
+
+# dictionary lookup  to avoid SQL injection
+sort_to_sql = {
+    "name" : "ORDER BY name ASC",
+    "-name": "ORDER BY name DESC",
+    "created": "ORDER BY date_created ASC",
+    "-created": "ORDER BY date_created DESC",
+    "updated": "ORDER BY date_updated ASC",
+    "-updated": "ORDER BY date_updated DESC"
+}
 
 
-class ItemFilter(Schema):
+class SearchSortFilter(Schema):
     sort: Optional[str] = None
-    status: Optional[State] = None
+    state: Optional[str] = None
 
 @api.get("/simulations")
-def simulations(request):
+def simulations(request, filters: Query[SearchSortFilter]= None ):
     """
     List of machines, filterable and sortable
     :param request:
     :return:
     """
+
     # TODO add filtering and ordering
+
+
     # add a link to the simulation detail
     try:
-        get_machines_sql = "SELECT * FROM simulation ORDER BY date_created"
+        get_machines_sql = "SELECT * FROM simulation " #ORDER BY date_created"
+        # print("***", filters)
+        placeholder_vars = []
+        if filters.state:
+            get_machines_sql += f" WHERE state = %s "  # change this to a placeholder
+            placeholder_vars.append(filters.state)
+
+        if filters.sort:
+            get_machines_sql += sort_to_sql.get(filters.sort, "")
+
         conn = connections['default']
         conn.ensure_connection()
         with conn.connection.cursor(cursor_factory=RealDictCursor) as cur:
-            cur.execute(get_machines_sql)
+            cur.execute(get_machines_sql, placeholder_vars)
             results = cur.fetchall()
         return results
 
