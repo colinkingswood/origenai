@@ -1,14 +1,16 @@
 import json
 import logging
+from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
 from django.http import JsonResponse
+from django.urls import reverse
 from ninja import NinjaAPI, Router, Schema, FilterSchema, Query
 # from simulations.database_connection import conn
 from django.db import connections
 from psycopg2.extras import RealDictCursor
-from pydantic import condecimal
+from pydantic import condecimal, BaseModel, HttpUrl
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +40,7 @@ def add_machine(request, data:CreateMachineSchema):
     try:
         insert_sql = "INSERT INTO machine (name, location) values (%s,%s) RETURNING id"
         insert_values = (data.name, data.location)
-        conn = connections['default']
+        conn = connections['default']  # I ran into problems with tests and transactions, hence doing it this way
         with conn.cursor() as cur:
             cur.execute(insert_sql, insert_values)
             new_id = cur.fetchone()[0]
@@ -104,10 +106,17 @@ def convergence_graph(request, simulation_id: int):
     except Exception as e:
         return JsonResponse({"OK": False, "error": str(e)}, status=400)
 
-@api.get("/simulations/{simulation_id}/detail")
-def simulation_detail(request):
+@api.get("/simulations/{simulation_id}/detail", url_name="simulation_detail")
+def simulation_detail(request, simulation_id: int):
     """ Get detail for one simulation"""
-    return {"msg": "TODO"}
+
+    get_machines_sql = "SELECT * FROM simulation WHERE id = (%s)"
+    conn = connections['default']
+    conn.ensure_connection()
+    with conn.connection.cursor(cursor_factory=RealDictCursor) as cur:
+        cur.execute(get_machines_sql, (simulation_id,))
+        results = cur.fetchone()
+    return results
 
 
 class State(str, Enum):
@@ -164,18 +173,24 @@ class SearchSortFilter(Schema):
     sort: Optional[str] = None
     state: Optional[str] = None
 
-@api.get("/simulations")
-def simulations(request, filters: Query[SearchSortFilter]= None ):
+class SimulationResponse(BaseModel):
+    id: int
+    name: str
+    state: str
+    date_created: datetime
+    date_updated: Optional[datetime]
+    machine_id: Optional[int]
+    link: HttpUrl
+
+@api.get("/simulations")#, response=List[SimulationResponse])
+def simulations(request, filters: Query[SearchSortFilter]= None):
     """
     List of machines, filterable and sortable
+    :param response:
     :param request:
-    :return:
+    :return:A list of simulation objects as json
     """
 
-    # TODO add filtering and ordering
-
-
-    # add a link to the simulation detail
     try:
         get_machines_sql = "SELECT * FROM simulation " #ORDER BY date_created"
         # print("***", filters)
@@ -192,6 +207,17 @@ def simulations(request, filters: Query[SearchSortFilter]= None ):
         with conn.connection.cursor(cursor_factory=RealDictCursor) as cur:
             cur.execute(get_machines_sql, placeholder_vars)
             results = cur.fetchall()
+            for result in results:
+
+                # add the clickable link
+                current_scheme = request.scheme  # 'http' or 'https'
+                current_domain = request.get_host()  # Domain or IP including port if present
+
+                url =  reverse("api-1.0.0:simulation_detail", kwargs={"simulation_id": result['id']})
+                full_url = f"{current_scheme}://{current_domain}{url}"
+
+                result.update({"link": full_url})
+
         return results
 
     except Exception as e:
