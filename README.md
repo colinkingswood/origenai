@@ -9,7 +9,7 @@ I created a few management command to create the tables and load the fixture dat
 
 To start everything use 
 
-    `docker compose up -- build`. 
+    `docker compose up --build`. 
 
 On my machine the web server is starting before the database is available, so you may need to stop and restart the docker compose containers as the web server starts before the database is ready on my development machine. 
 SO `ctrl + c` then run `docker comppose up` again 
