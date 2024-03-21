@@ -39,12 +39,14 @@ in order to run the tests use
 
 some commands to add simulations 
 
-```curl -X POST 0.0.0.0:8000/api/simulations/add \
+```
+curl -X POST 0.0.0.0:8000/api/simulations/add \
         -H "Content-Type: application/json" \
         -d '{"name": "my-simulation-1", "state": "pending", "machine_name": "machine-1"}'
 ```
         
-```curl -X POST 0.0.0.0:8000/api/simulations/add \
+```
+curl -X POST 0.0.0.0:8000/api/simulations/add \
        -H "Content-Type: application/json" \
        -d '{"name": "my-simulation-3", "state": "pending"}'
 ```
