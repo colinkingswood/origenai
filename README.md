@@ -1,3 +1,5 @@
+Technical test. No ORM allowed so everyting in SQL. 
+
 The application is implemented using Django as it is the framework I am most familiar with, though a ligher weight fraemwork may have made a little more sense, as Django is quite heavily tied to the ORM and the requirements were not to use the ORM.
 
 It uses Django ninja for creating the API, as it is a nice library on to of Django, lighter weight than DRF and provides data valiadation. Though not using the ORM meant that I needed to write a lot of my own code. 
